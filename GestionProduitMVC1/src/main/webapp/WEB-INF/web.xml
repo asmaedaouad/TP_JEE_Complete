@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <display-name>GestionProduitsMVC1</display-name>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>filter.AuthFilter</filter-class>
+    </filter>
+    
+    
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>filter.AdminFilter</filter-class>
+    </filter>
+
+
+    <!-- AuthFilter s'applique à toutes les pages protégées -->
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/listProduits</url-pattern>
+        <url-pattern>/addProduit</url-pattern>
+        <url-pattern>/editProduit</url-pattern>
+        <url-pattern>/updateProduit</url-pattern>
+        <url-pattern>/deleteProduit</url-pattern>
+    </filter-mapping>
+    
+    <!-- AdminFilter s'applique seulement aux actions ADMIN -->
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/addProduit</url-pattern>
+        <url-pattern>/updateProduit</url-pattern>
+        <url-pattern>/deleteProduit</url-pattern>
+    </filter-mapping>
+
+   
+    <welcome-file-list>
+        <welcome-file>listProduits</welcome-file>
+    </welcome-file-list>
+
+    <!-- ===== CONFIGURATION SESSION ===== -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <!-- ===== PAGES D'ERREUR ===== -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/views/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/views/error.jsp</location>
+    </error-page>
+
+</web-app>
